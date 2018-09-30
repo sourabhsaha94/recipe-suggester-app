@@ -19,9 +19,12 @@ MongoClient.connect('mongodb://localhost:27017/'+db_name,function(err,client){
 app.get('/',function(req,res){
     let endpoints = [{
         'url':'/recipe-list?title=<string>',
-        'desc':'To search for recipe with title having given string'
+        'desc':'To get list of recipes with title having given string'
+    },{
+        'url':'/recipe-full?title=<exact string>',
+        'desc':'To search for recipe with title exactly matching the string'
     }];
-    res.send(endpoints);
+    res.status(200).send(endpoints);
 });
 
 //end point to get list of recipes matching given title param
@@ -35,12 +38,14 @@ app.get('/recipe-list',function(req,res){
     if(db){
         db.collection(recipeBasicCollection).find(mongoQuery).toArray(function(err,result){
             if(err) throw err;
-
-            res.send(result);
+            if(result)
+                res.status(200).send(result);
+            else
+                res.status(404).send("Not found");
         });
     }
     else
-        res.send('connection to db failed');
+        res.status(500).send('connection to db failed');
 });
 
 //end point to get recipe exactly matching given title param
@@ -48,23 +53,23 @@ app.get('/recipe-list',function(req,res){
 app.get('/recipe-full',function(req,res){
 
     let titleString = req.query.title;
-
-    console.log(titleString);
-
     if(titleString){
         let mongoQuery = {'name':titleString};
     
         if(db){
             db.collection(recipeFullCollection).findOne(mongoQuery,function(err,result){
                 if(err) throw err;
-                res.send(result);
+                if(result)
+                    res.status(200).send(result);
+                else
+                    res.status(404).send("Not found");
             });
         }
         else
-            res.send('connection to db failed');
+            res.status(500).send('connection to db failed');
     }
     else
-        res.send("Specify exact title")
+        res.status(500).send("Specify exact title")
     
 });
 
