@@ -74,6 +74,8 @@ app.get('/recipe-full',function(req,res){
 });
 
 
-app.listen(port,function(){
-    console.log("Server listening on port",port);
+const index = app.listen(port,function(){
+        console.log("Server listening on port",port);
 });
+
+module.exports = index;
