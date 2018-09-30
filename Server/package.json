@@ -1,0 +1,29 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Node server using express",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sourabhsaha94/recipe-suggester-app.git"
+  },
+  "keywords": [
+    "recipe",
+    "react",
+    "express"
+  ],
+  "author": "Sourabh Saha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sourabhsaha94/recipe-suggester-app/issues"
+  },
+  "homepage": "https://github.com/sourabhsaha94/recipe-suggester-app#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "mongodb": "^3.1.6"
+  }
+}
