@@ -1,3 +1,4 @@
 Scraper/env
 .vscode
 Server/node_modules
+UI/recipe-suggester/node_modules
