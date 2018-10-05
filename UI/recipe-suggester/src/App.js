@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-class App extends Component {
+/*class App extends Component {
   render() {
     return (
       <div className="App">
@@ -23,6 +23,28 @@ class App extends Component {
       </div>
     );
   }
+}
+*/
+
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <SearchBar />
+        </header>
+      </div>
+    );
+  }
+}
+
+function SearchBar(props){
+  return (
+    <div class="form-group">
+      <input id="search-input" class="form-control" placeholder="Search" type="text"/>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  );
 }
 
 export default App;
