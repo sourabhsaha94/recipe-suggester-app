@@ -13,14 +13,34 @@ html, body{
   padding-left: 10%;
   padding-right: 10%;
 }
+
 .search-bar{
   position: relative;
   margin-top:20em;
 }
+
 .search-bar .col-md-2 button{
   width: 100%;   
 }
 
+.recipe-card{
+  cursor: pointer;
+}
+
+.recipe-card a{
+  color: black;
+  text-decoration: inherit;
+  width: 100%;
+}
+
+.recipe-card a:hover{
+  color: indigo;
+}
+
 .recipe-card .card{
   width: 100%;
+}
+
+.full-recipe-container .recipe-card{
+  cursor: inherit;
 }

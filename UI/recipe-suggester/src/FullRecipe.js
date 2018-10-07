@@ -1,31 +1,32 @@
 import React from 'react';
 import {Container, Button, Row} from 'reactstrap';
-import queryString from 'query-string';
 import RecipeCard from './RecipeCard';
 import Link from 'react-router-dom/Link';
 
-class SearchResults extends React.Component{
+class FullRecipe extends React.Component{
 
-    baseRecipeApi = "http://192.168.100.10:8080/recipe-from-ingredients?ingredients=";
+    baseRecipeApi = "http://192.168.100.10:8080/recipe-full?title=";
 
     constructor(props){
       super(props);
       this.state = {
           error: null,
           isLoaded: false,
-          recipeList: [],
+          recipe: {},
       };
+
+      console.log(props);
     }
     
     //https://reactjs.org/docs/faq-ajax.html
     componentDidMount(){
-        const value = queryString.parse(this.props.location.search);
-        fetch(this.baseRecipeApi+value.name)
+        const value = this.props.match.params.name;
+        fetch(this.baseRecipeApi+value)
         .then((res) => res.json()).then(
             (result) => {
                 this.setState({
                     isLoaded: true,
-                    recipeList: result,
+                    recipe: result,
                 });
             },
             (error) => {
@@ -38,7 +39,7 @@ class SearchResults extends React.Component{
     }
 
     render(){
-        const {error, isLoaded, recipeList} = this.state;
+        const {error, isLoaded, recipe} = this.state;
 
         if (error) {
             return <div>Error: {error.message}</div>;
@@ -49,11 +50,10 @@ class SearchResults extends React.Component{
         else {
             return (
                 <React.Fragment>
-                    <Container className="search-results-container">
-                    <Row><Link to="/"><Button color="primary" className="my-3">Back</Button></Link></Row>
-                    {recipeList.map(item => (
-                        <RecipeCard key = {item._id}  name={item.name} description={item.description} />
-                    ))}
+                    <Container className="full-recipe-container">
+                        <Row><Link to="/"><Button color="primary" className="my-3">Back</Button></Link></Row>
+                        <RecipeCard key = {recipe._id}  name={recipe.name} 
+                        description={recipe.description} full_recipe={recipe}/>
                     </Container>
                 </React.Fragment>
             );
@@ -61,4 +61,4 @@ class SearchResults extends React.Component{
     }
 }
 
-export default SearchResults;
+export default FullRecipe;
