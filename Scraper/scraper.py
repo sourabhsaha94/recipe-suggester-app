@@ -47,7 +47,7 @@ def scrape_url(page_count):
                 print(recipe_name)
                 #store this simple info in a separate db to facilitate searching later on
                 if recipe_name and recipe_link:
-                    recipe = RecipeBasic(name=recipe_name,link=recipe_link)
+                    recipe = RecipeBasic(name=recipe_name.strip(),link=recipe_link).save()
                     #scrape the actual recipe
                     scrape_recipe(recipe_link)
             except Exception as e:
@@ -92,7 +92,7 @@ def scrape_recipe(recipe_url):
                 
             #make the recipe object
             if recipe_name and recipe_description:
-                recipe = RecipeFull(name=recipe_name,description=recipe_description,ingredients=ingredient_list,steps=step_list).save()
+                recipe = RecipeFull(name=recipe_name.strip(),description=recipe_description,ingredients=ingredient_list,steps=step_list).save()
         except Exception as e:
             print(e)
 
