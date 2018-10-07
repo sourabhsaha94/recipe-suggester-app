@@ -1,0 +1,22 @@
+html, body{
+  height: 100%;
+}
+
+#root{
+  height: 100%;
+  background: indigo;
+}
+
+.container-fluid{
+  background: transparent;
+  height: 100%;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+.search-bar{
+  position: relative;
+  top:30%;
+}
+.search-bar .col-md-2 button{
+  width: 100%;   
+}

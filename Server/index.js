@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = 8080;
 const MongoClient = require('mongodb').MongoClient;
 
 var db_name = 'recipe_db';
@@ -13,6 +13,12 @@ MongoClient.connect('mongodb://localhost:27017/'+db_name,function(err,client){
     if(err) throw err;
 
     db = client.db(db_name);
+});
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
 });
 
 //Root endpoint -> list all possible endpoints here as response
