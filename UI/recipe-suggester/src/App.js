@@ -1,50 +1,21 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import {Container, Row, Col} from 'reactstrap';
+import { Route, HashRouter} from 'react-router-dom';
 import './App.css';
-
-/*class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
-}
-*/
+import SearchBar from './SearchBar';
+import SearchResults from './SearchResults';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <SearchBar />
-        </header>
-      </div>
+      <HashRouter>
+        <Container fluid>
+        <Route exact path="/" component = {SearchBar} />
+        <Route path="/search" component = {SearchResults}/>
+      </Container>
+      </HashRouter>
     );
   }
-}
-
-function SearchBar(props){
-  return (
-    <div class="form-group">
-      <input id="search-input" class="form-control" placeholder="Search" type="text"/>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
-  );
 }
 
 export default App;
