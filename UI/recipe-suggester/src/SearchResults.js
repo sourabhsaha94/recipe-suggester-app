@@ -5,7 +5,7 @@ import RecipeCard from './RecipeCard';
 
 class SearchResults extends React.Component{
 
-    baseRecipeApi = "http://localhost:8080/recipe-list?title=";
+    baseRecipeApi = "http://localhost:8080/recipe-from-ingredients?ingredients=";
 
     constructor(props){
       super(props);
@@ -49,7 +49,7 @@ class SearchResults extends React.Component{
             return (
                 <Container className="search-results-container">
                 {recipeList.map(item => (
-                    <RecipeCard key = {item._id}  name={item.name} link={item.link} />
+                    <RecipeCard key = {item._id}  name={item.name} description={item.description} />
                 ))}
                 </Container>
             );

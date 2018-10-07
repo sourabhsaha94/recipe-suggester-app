@@ -29,6 +29,9 @@ app.get('/',function(req,res){
     },{
         'url':'/recipe-full?title=<exact string>',
         'desc':'To search for recipe with title exactly matching the string'
+    },{
+        'url':'/recipe-from-ingredients?ingredients=<ing 1>,<ing 2>,<ing 3>...',
+        'desc':'To search for recipe with ingredients matching the given list'
     }];
     res.status(200).send(endpoints);
 });
@@ -77,6 +80,34 @@ app.get('/recipe-full',function(req,res){
     else
         res.status(500).send("Specify exact title")
     
+});
+
+//end point to get all recipes matching given ingredients
+app.get('/recipe-from-ingredients',function(req,res){
+
+    let listOfIngredientsString = req.query.ingredients;
+    let ingredientsArray = listOfIngredientsString.split(',');
+
+    ingredientsArray = ingredientsArray.map((item) => {
+        return new RegExp(item.trim());
+    });
+
+    if(ingredientsArray.length>0){
+        if(db){
+            let mongoQuery = {"ingredients":{"$all": ingredientsArray}};
+            db.collection(recipeFullCollection).find(mongoQuery).toArray(function(err,result){
+                if(err) throw err;
+                if(result)
+                    res.status(200).send(result);
+                else
+                    res.status(404).send("Not found");
+            });
+        }
+        else
+            res.status(500).send("Connection to db failed");
+    }
+    else
+        res.status(500).send("Specify ingredients in search")
 });
 
 
